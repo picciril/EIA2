@@ -1,3 +1,4 @@
+"use strict";
 var Boxes;
 (function (Boxes) {
     let n = 5;
