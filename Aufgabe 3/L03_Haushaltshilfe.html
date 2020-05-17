@@ -3,141 +3,67 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link rel="stylesheet" href="L03_Haushaltshilfe.css">
-	<script src="L03_Haushaltshilfe.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haushaltshilfe</title>
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+    <script src="Data.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="generateContent.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="script.js" type="text/javascript" charset="UTF-8"></script>
 </head>
 
 <body>
+    <header>
+        <h1>Haushaltshilfe</h1>
+        <p>Select the things you take in concern. Verify your order on the right.</p>
+    </header>
+    <form>
+        <div id="form">
+            <h2>Select here your groceries</h2>
+            <fieldset>
+                <legend>Grocery</legend>
+                <select name="Grocery" id="grocery">
+                    <option value="Butter" price="2">Butter</option>
+                    <option value="Flour" price="4">Flour</option>
+                    <option value="Milk" price="3">Milk</option>
+                    <option value="Salad" price="2">Salad</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>Amount</legend>
+                <input type="radio" name="Amount" id="one" value="One" checked />
+                <label for="one">One</label>
+                <input type="radio" name="Amount" id="two" value="Two" />
+                <label for="two">Two</label>
+                <input type="radio" name="Amount" id="three" value="Three" />
+                <label for="three">Three</label>
+            </fieldset>
+            <fieldset>
+                <legend>Time</legend>
+                <select name="Tasks" id="tasks">
+                    <option value="Window" price="10">Cleaning windows</option>
+                    <option value="Hoover" price="15">hoover</option>
+                    <option value="Feed" price="5">Feed the cat</option>
+                    <option value="Lawn" price="2">Cut the lawn</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>How often</legend>
+                <input type="radio" name="time" id="daily" value="Daily" checked />
+                <label for="daily">Daily</label>
+                <input type="radio" name="time" id="weekly" value="Weekly" />
+                <label for="weekly">Weekly</label>
+                <input type="radio" name="time" id="monthly" value="Monthly" />
+                <label for="monthly">Monthly</label>
+            </fieldset>
+        </div>
+    </form>
+    <div id="headline">
+     <h2 id="ord">Your orders</h2>
+       <div id="orders">
 
-	<h1>Haushaltshilfe</h1> <br>
-
-<div id="change">
-<form>
-	<fieldset>
-		<p>Wählen Sie unte folgenden Erledigungen:</p>
-		<input type="checkbox" name="einkaufen" value="einkaufen" id="check1" />
-		<label for="check1">Einkaufen</label>
-		<input type="checkbox" name="rasenmähen" value="rasenmähen" id="check2" />
-		<label for="check2">Rasenmähen</label>
-	</fieldset> <br> <br>
-
-	<fieldset>
-		<legend> Erledigung - Einkaufen </legend>
-		<p class="bold">Artikel
-			<span class="z1">Menge</span>
-			<span class="z2">Einheit</span>
-			<span class="z3">Preis pro Einheit</span>
-			<span class="z5">Kosten</span>
-
-		</p>
-		<hr>
-		<p>Brot
-			<input class="z1" type="text" name="Datalist" list="options" placeholder="       ...choose ammount" />
-			<datalist  id="options">
-				<option value="0,5 kg"> </option>
-				<option value="1 kg"> </option>
-				<option value="1,5 kg"> </option>
-				<option value="2 kg"> </option>
-				<option value="3 kg"> </option>
-			
-			</datalist>
-
-			<span class="z2">Kilogramm</span>
-			<span class="z3">3,00€</span>
-			<span class="shoppingcosts" id="shopping1"> ...............</span>
-		</p>
-
-		<hr>
-		<p>Äpfel
-			<span class="z1">
-				<input type="radio" name="Radiogroup" value="radio1" id="radio1" />
-				<label for="radio1">2</label>
-				<input type="radio" name="Radiogroup" value="radio2" id="radio2" />
-				<label for="radio2">4</label>
-				<input type="radio" name="Radiogroup" value="radio3" id="radio3" />
-				<label for="radio3">6</label>
-			</span>
-			<span class="z2">Stück</span>
-			<span class="z3">0,30€</span>
-			<span class="shoppingcosts" id="shopping2"> ...............</span>
-		</p>
-		<hr>
-
-		<p>Wasser
-			<span class="z1">
-				1L<input type="range" name="Slider" min="0" max="20" step="1" value="0" />20L
-			</span>
-			<span class="z2">Liter</span>
-			<span class="z3">0,40€</span>
-			<span class="shoppingcosts" id="shopping3"> ...............</span>
-		</p>
-		<hr>
-
-		<p>Grundgebühr: <span class="z5">10,00 €</span></p>
-
-		<hr>
-		<p>Gesamt <span class="shoppingcosts" id="shopping4"> ...............</span> </p>
-	</fieldset> <br> <br>
-
-
-	<fieldset>
-		<legend> Erledigung - Rasenmähen</legend>
-		<p>Geben Sie hier die ungefähre Rasenfläche in Quadratmetern an</p>
-		Rasenfläche: <input type="text" name="Text" placeholder="             .... z.B. 80" required />
-		<hr>
-		<p>Preis pro Quadratmeter:
-			<span class="z2">0,10 €</span>
-		</p>
-		<hr>
-		<p>Grundgebühr:
-			<span class="z2">10,00 €</span>
-		</p>
-		<hr>
-		<p>Gesamt:
-			<span id="mowing1">..............</span>
-		</p>
-
-	</fieldset> <br> <br>
-</form>
-</div>
-
-	<fieldset>
-		<legend>Übersicht der gewählten Dienste</legend>
-		<p>Erledigung - Einkaufen:
-			<span class="overviewcosts" id="overview1">.............</span>
-		</p>
-		<hr>
-
-		<p>Erledigung - Rasenmähen:
-			<span class="overviewcosts" id="overview2">.............</span>
-		</p>
-		<hr>
-
-		<p>Gesamtkosten:
-			<span class="overviewcosts" id="overview3">.............</span>
-		</p>
-	</fieldset>
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<br> <br> <br> <br> <br> <br> <br>
-
-
-
-
+       </div>
+    </div>
 </body>
 
 </html>

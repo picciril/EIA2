@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haushaltshilfe</title>
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+    <script src="Data.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="generateContent.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="script.js" type="text/javascript" charset="UTF-8"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Haushaltshilfe</h1>
+        <p>Select the things you take in concern. Verify your order on the right.</p>
+    </header>
+    <form>
+        <div id="form">
+            <h2>Select here your groceries</h2>
+            <fieldset>
+                <legend>Grocery</legend>
+                <select name="Grocery" id="grocery">
+                    <option value="Butter" price="2">Butter</option>
+                    <option value="Flour" price="4">Flour</option>
+                    <option value="Milk" price="3">Milk</option>
+                    <option value="Salad" price="2">Salad</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>Amount</legend>
+                <input type="radio" name="Amount" id="one" value="One" checked />
+                <label for="one">One</label>
+                <input type="radio" name="Amount" id="two" value="Two" />
+                <label for="two">Two</label>
+                <input type="radio" name="Amount" id="three" value="Three" />
+                <label for="three">Three</label>
+            </fieldset>
+            <fieldset>
+                <legend>Time</legend>
+                <select name="Tasks" id="tasks">
+                    <option value="Window" price="10">Cleaning windows</option>
+                    <option value="Hoover" price="15">hoover</option>
+                    <option value="Feed" price="5">Feed the cat</option>
+                    <option value="Lawn" price="2">Cut the lawn</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>How often</legend>
+                <input type="radio" name="time" id="daily" value="Daily" checked />
+                <label for="daily">Daily</label>
+                <input type="radio" name="time" id="weekly" value="Weekly" />
+                <label for="weekly">Weekly</label>
+                <input type="radio" name="time" id="monthly" value="Monthly" />
+                <label for="monthly">Monthly</label>
+            </fieldset>
+        </div>
+    </form>
+    <div id="headline">
+     <h2 id="ord">Your orders</h2>
+       <div id="orders">
+
+       </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+#form {
+    width: 400px;
+}
+
+#orders {
+    width: 400px;
+    height: 400px;
+    border-style: solid;
+    position: absolute;
+    top: 50px; 
+    right: 30px;
+    
+}
+
+#headline {
+    position: absolute;
+    right: 50px;
+    top: 50px;
+}
+h2{
+    text-align: center; 
+}
+
+#ord {
+    position: relative;
+    right: 170px; 
+}
