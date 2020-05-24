@@ -1,0 +1,33 @@
+
+
+
+  
+   { 
+        "Grocery":  [
+            { "name": "Butter", "price": "2" }, 
+            { "name": "Flour", "price": "4" },
+            { "name": "Milk", "price": "3" },
+            { "name": "Salad", "price": "2 "}
+        ],
+        "amount": [
+            { "name": "amount", "price":"0"},
+        ],
+       
+        "Task": [
+            { "name": "Window", "price": "10" }, 
+            { "name": "Hoover", "price": "15" },
+            { "name": "Feed", "price":"5" },
+            { "name": "Lawn", "price": "2" }
+        ],
+        "Time": [
+            { "name": "Daily", "price": "7" },
+            { "name": "Weekly", "price": "4 "},
+            { "name": "Monthly", "price": "1" } 
+        ],
+        "Store": [ 
+            { "name": "Lidl", "price": "0"},
+            { "name": "Bauernmarkt", "price": "0"},
+            { "name": "Edeka", "price": "0"}
+        ]
+    }
+
