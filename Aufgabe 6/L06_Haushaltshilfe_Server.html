@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haushaltshilfe</title>
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <script src="script.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="generateContent.js" type="text/javascript" charset="UTF-8"></script> 
+    
+</head>
+
+<body>
+    <header>
+        <h1>Haushaltshilfe</h1>
+    </header>
+    <form id="orderForm" method="GET">
+        <div>
+            <h2>Auswahl</h2>
+            <fieldset>
+                <legend>Choose</legend>
+                <label for="einkauf">Grocerys</label>
+                <input type="radio" name="Task" id="grocerys" value="Grocerys">
+                <label for="haushalt">Householdtasks</label>
+                <input type="radio" name="Task" id="household" value="Household">
+            </fieldset>
+           
+
+            <fieldset id="fieldgrocery">
+                <legend>Grocery</legend>
+               <select name="Grocery" id="grocery">
+                    <option value="Butter" price="2">Butter</option>
+                    <option value="Flour" price="4">Flour</option>
+                    <option value="Milk" price="3">Milk</option>
+                    <option value="Salad" price="2">Salad</option>
+                </select>
+                <input type="number" id="amount" name="amount" step="0.5" min="0" max="10" value="" placeholder="1">
+                
+                
+                <select name="Store" id="store">
+                    <option value="Lidl">Lidl</option>
+                    <option value="Bauernmarkt">Bauernmarkt</option>
+                    <option value="Edeka">Edeka</option>
+                </select>
+
+            
+                <!--<button id="fertiggrocery" type="button">OK</button>-->
+
+            </fieldset>
+            
+            <fieldset id="fieldhousehold">
+            <legend>Household Tasks</legend>
+                <select name="Tasks" id="tasks">
+                    <option value="Window" price="10">Cleaning windows</option>
+                    <option value="Hoover" price="15">hoover</option>
+                    <option value="Feed" price="5">Feed the cat</option>
+                    <option value="Lawn" price="2">Cut the lawn</option>
+                </select>
+                <input type="radio" name="time" id="daily" value="Daily" checked />
+                <label for="daily">Daily</label>
+                <input type="radio" name="time" id="weekly" value="Weekly" />
+                <label for="weekly">Weekly</label>
+                <input type="radio" name="time" id="monthly" value="Monthly" />
+                <label for="monthly">Monthly</label>
+                <!--<button id="fertigtask" type="button">OK</button>-->
+
+            </fieldset>
+            
+        </form>
+        </div>
+       
+   
+       <div id="orders"></div>
+       <div id="send">  
+       
+        <button type="button" id="bestellFertig" form="orderForm">Done</button>
+        <button type="reset" id="restart" form="orderForm">Delete</button>
+       </div>
+       
+
+      
+    </div>
+    
+</body>
+
+</html>
