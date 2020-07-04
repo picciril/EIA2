@@ -13,9 +13,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var Virus;
 (function (Virus) {
-    var Anti = /** @class */ (function (_super) {
-        __extends(Anti, _super);
-        function Anti(_position) {
+    var Cells = /** @class */ (function (_super) {
+        __extends(Cells, _super);
+        function Cells(_position) {
             var _this = _super.call(this, _position) || this;
             _this.position = _position;
             var colors = ["HSL(0, 50%, 100%)", "HSLA(360, 40%, 60%)"];
@@ -32,7 +32,7 @@ var Virus;
             _this.velocity.random(10, 100);
             return _this;
         }
-        Anti.prototype.draw = function () {
+        Cells.prototype.draw = function () {
             var crc2;
             console.log("Cell draw");
             crc2.save();
@@ -51,7 +51,7 @@ var Virus;
             crc2.fill(particle);
             crc2.restore();
         };
-        Anti.prototype.move = function (_timeslice) {
+        Cells.prototype.move = function (_timeslice) {
             console.log("Cell move");
             var crc2;
             var offset = new Virus.Vector(this.velocity.x, this.velocity.y);
@@ -67,8 +67,8 @@ var Virus;
             if (this.position.y > crc2.canvas.height)
                 this.position.y -= crc2.canvas.height;
         };
-        return Anti;
+        return Cells;
     }(Virus.Moveable));
-    Virus.Anti = Anti;
+    Virus.Cells = Cells;
 })(Virus || (Virus = {}));
-//# sourceMappingURL=anti.js.map
+//# sourceMappingURL=cells.js.map
