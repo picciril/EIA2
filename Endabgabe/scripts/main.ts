@@ -54,6 +54,7 @@ namespace endabgabe {
         //create canvas get CanvasRenderingContext2D
         canvas = document.createElement("canvas");
         console.log(canvasSize);
+        console.log(canvasSize);
         canvas.height = parseInt(canvasSize);
         canvas.width = parseInt(canvasSize);
         gamePage.insertBefore(canvas, finalButton);
