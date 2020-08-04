@@ -98,8 +98,6 @@ namespace endabgabe {
 
         startButton = <HTMLButtonElement>document.getElementById("startButton");
         startButton.addEventListener("click", handleStart)
-
-
     }
 
     function handleStart(): void {
