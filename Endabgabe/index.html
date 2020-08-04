@@ -5,59 +5,122 @@
     <title>Zauberbild</title>
     <meta charset="utf-8" />
     <link href="css/style.css" type="text/css" rel="stylesheet">
-    <!--
-		<script src="scripts/name.js" type="text/javascript" charset="utf-8"></script>
-	
-        -->
+    <script src="scripts/Object.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/movingObject.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/menueObject.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/Triangle.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/Cube.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/Circle.js" type="text/javascript" charset="utf-8"></script>
     <script src="scripts/main.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
-    <div id="startP">
+    <div id="startPage">
         <h1>Zauberbild</h1>
         <h2>Willkommen!</h2>
-        <p>Lorem ipsumksfnvl dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-            dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-            clita kasd gubergren, nohvjkl sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-            consetetur sadipscing elitr, sed diam nonumy eirnjvugmod tempor invidunt ut labore et dolore magna aliquyam erat,
-            sed diam voluptua. At veroksvhbidf eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-            sea takimata sanctus est Lorem ipsum dolor sit amet.
+        <p>Spielbeschreibung
         </p>
-        <div>
-                <input type="radio" id="smallRadio" class="radio_canvasSize" name="canvasSizeRadio" value="250">
+        <div id="radioButtons">
+            <fieldset id="radioButtons_canvasSize">
+                <input type="radio" id="smallRadio" class="radioButtons_startPage_cs" name="radioButtons_startPage"
+                    value="250">
                 <label for="smallRadio">small canvas size</label>
-                <input type="radio" id="middleRadio" class="radio_canvasSize" name="canvasSizeRadio" value="556">
+                <input type="radio" id="mediumRadio" class="radioButtons_startPage_cs" name="radioButtons_startPage"
+                    value="556">
                 <label for="middleRadio">middle canvas size</label>
-                <input type="radio" id="largeRadio" class="radio_canvasSize" name="canvasSizeRadio" value="960">
+                <input type="radio" id="largeRadio" class="radioButtons_startPage_cs" name="radioButtons_startPage"
+                    value="960">
                 <label for="largeRadio">large canvas size</label>
-        </div>
-        <div>
-            <!--
+            </fieldset>
+            <fieldset id="radioButtons_Db">
+                <!--
                 Hier kommt die Datenbank Radios rein
+                class="radioButtons_startPage" 
             -->
+            </fieldset>
+            <button id="startButton">Start Game</button>
         </div>
-        <button id="startB">Start Game</button>
     </div>
 
-    <div id="gameP">
-        <!-- 
-            Hier sind die Komponenten für die Spielseite hinterlegt
-        -->
-        <h2>Hier passiert das Spiel</h2>
-        
-        <button id="finalB">Final Game</button>
+    <div id="gamePage">
+
+        <div id="canvasContainer">
+            <!-- hier kommt der <canvas> rein -->
+        </div>
+
+        <div id="manipulationArea">
+
+            <div id="xSpeedInputContainer">
+                <input type="range" id="xSpeedRange" name="xSpeed" min="-10" max="10" value="0" step="2">
+                <label for="xSpeedRange">xSpeed</label>
+            </div>
+
+            <div id="ySpeedInputContainer">
+                <input type="range" id="ySpeedRange" name="ySpeed" min="-10" max="10" value="0" step="2">
+                <label for="ySpeedRange">ySpeed</label>
+            </div>
+
+            <div id="scaleInputContainer">
+                <input type="range" id="scaleRange" name="scale" min="1" max="15" value="1" step="1">
+                <label for="scaleRange">size</label>
+            </div>
+
+            <div id="rotationInputContainer">
+                <!--rotation-->
+                <input type="radio" id="rotateRightRadio" class="manipulationInput" name="rotationRadios" value="right">
+                <label for="rotateRightRadio">rotate right</label><br>
+                <input type="radio" id="rotateLeftRadio" class="manipulationInput" name="rotationRadios" value="left">
+                <label for="rotateLeftRadio">rotate left</label><br>
+                <input type="radio" id="noRotationRadio" class="manipulationInput" name="rotationRadios" value="none">
+                <label for="noRotationRadio">no rotation</label>
+            </div>
+            <div id="colorInputContainer">
+                <!--colorchange-->
+                <label for="colorInput">Wähle eine andere Farbe:</label>
+                <input type="color" id="colorInput" class="manipulationInput" value="#000000">
+            </div>
+
+            <div id="wabbleInputContainer">
+                <!--checkbox for wabble-->
+                <input type="checkbox" class="manipulationInput" id="wabbleBox">
+                <label for="wabbleBox">wabble</label>
+            </div>
+
+            <div id="glowInputContainer">
+                <!--checkbox for glow-->
+                <input type="checkbox" name="onoffswitch" class="manipulationInput" id="glowBox">
+                <label for="glowBox">glow</label>
+            </div>
+
+        </div>
+
+        <button id="finalButton">End Game</button>
+        <button id="reloadButton00">Restart Game</button>
+
     </div>
 
-    <div id="finalP">
+    <div id="formularPage">
         <!-- Hier sind die Komponenten für die Endseite hinterlegt-->
-        <h2>Speicheroption</h2>
-        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-            dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-            clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-            consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-            sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-            sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
+        <div id="formularPage_container">
+            <form method="post" action="dateiname server" id="formularPage_formular">
+                <label for="formular_name">Name des Bildes:</label>
+                <!-- größer 6 zeichen -->
+                <input type="text" id="formular_name" placeholder="Name des Bildes" pattern="^[A-Za-z]" required><br>
+                <label for="formular_author">Dein Name:</label>
+                <!-- größer 3 zeichen -->
+                <input type="text" id="formular_author" placeholder="Dein Name" pattern="^[A-Za-z]" required><br>
+                <input type="submit" value="speichern" id="saveButton">
+            </form>
+            <button id="reloadButton01">Restart Game</button>
+        </div>
+    </div>
+
+    <div id="finalPage">
+        <!-- Hier sind die Komponenten für die Endseite hinterlegt-->
+
+        <!--Hier kommt rein die bestätigung der übermittlung-->
+
+        <button id="reloadButton02">Restart Game</button>
     </div>
 
 

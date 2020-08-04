@@ -1,46 +1,32 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+"use strict";
 var Virus;
 (function (Virus) {
-    var Cells = /** @class */ (function (_super) {
-        __extends(Cells, _super);
-        function Cells(_position) {
-            var _this = _super.call(this, _position) || this;
-            _this.position = _position;
-            var colors = ["HSL(0, 50%, 100%)", "HSLA(360, 40%, 60%)"];
-            var numColors = colors.length;
-            var color;
-            var ColorIndex;
+    class Cells extends Virus.Moveable {
+        constructor(_position) {
+            super(_position);
+            this.position = _position;
+            let colors = ["HSL(0, 50%, 100%)", "HSLA(360, 40%, 60%)"];
+            let numColors = colors.length;
+            let color;
+            let ColorIndex;
             ColorIndex = Math.round(Math.random() * (numColors - 1));
             color = colors[ColorIndex];
-            _this.color = color;
-            var maxRadius = 3;
-            var minRadius = 1;
-            _this.radius = minRadius + (Math.random() * (maxRadius - minRadius));
-            _this.velocity = new Virus.Vector(0, 0);
-            _this.velocity.random(10, 100);
-            return _this;
+            this.color = color;
+            let maxRadius = 3;
+            let minRadius = 1;
+            this.radius = minRadius + (Math.random() * (maxRadius - minRadius));
+            this.velocity = new Virus.Vector(0, 0);
+            this.velocity.random(10, 100);
         }
-        Cells.prototype.draw = function () {
-            var crc2;
+        draw() {
+            let crc2;
             console.log("Cell draw");
             crc2.save();
-            var r1 = 1;
-            var r2 = 8;
+            let r1 = 1;
+            let r2 = 8;
             //let nParticles: number = 50;
-            var particle = new Path2D();
-            var gradient = crc2.createRadialGradient(0, 0, r1, 0, 0, r2);
+            let particle = new Path2D();
+            let gradient = crc2.createRadialGradient(0, 0, r1, 0, 0, r2);
             particle.arc(0, 0, r2, 0, 2 * Math.PI);
             gradient.addColorStop(0, "HSL(0, 50%, 100%)");
             gradient.addColorStop(0.8, "HSLA(360, 40%, 60%)");
@@ -50,11 +36,11 @@ var Virus;
             crc2.fillStyle = gradient;
             crc2.fill(particle);
             crc2.restore();
-        };
-        Cells.prototype.move = function (_timeslice) {
+        }
+        move(_timeslice) {
             console.log("Cell move");
-            var crc2;
-            var offset = new Virus.Vector(this.velocity.x, this.velocity.y);
+            let crc2;
+            let offset = new Virus.Vector(this.velocity.x, this.velocity.y);
             offset.x *= 0;
             offset.y *= _timeslice * 1.5;
             this.position.add(offset);
@@ -66,9 +52,8 @@ var Virus;
                 this.position.x -= crc2.canvas.width;
             if (this.position.y > crc2.canvas.height)
                 this.position.y -= crc2.canvas.height;
-        };
-        return Cells;
-    }(Virus.Moveable));
+        }
+    }
     Virus.Cells = Cells;
 })(Virus || (Virus = {}));
 //# sourceMappingURL=cells.js.map
