@@ -259,7 +259,7 @@ var endabgabe;
         let randomY = getRandomPosition(canvas.height);
         switch (objectID) {
             case "circle":
-                let circle = new endabgabe.Circle(_e.clientX, _e.clientY, objectID);
+                let circle = new endabgabe.Circle(randomX, randomY, objectID);
                 movingObjects.push(circle);
                 circle.draw();
                 break;

@@ -327,7 +327,7 @@ namespace endabgabe {
 
         switch (objectID) {
             case "circle":
-                let circle: Circle = new Circle(_e.clientX, _e.clientY, objectID);
+                let circle: Circle = new Circle(randomX, randomY, objectID);
                 movingObjects.push(circle);
                 circle.draw();
                 break;
