@@ -29,10 +29,11 @@ var endabgabe;
         //draw-methode
         draw() {
             endabgabe.crc.beginPath();
+            endabgabe.crc.strokeStyle = "black";
             endabgabe.crc.arc(this.xPos, this.yPos, this.size, this.start, this.stop);
-            endabgabe.crc.stroke();
-            endabgabe.crc.fillStyle = "red";
+            endabgabe.crc.strokeStyle = "black";
             endabgabe.crc.fill();
+            endabgabe.crc.closePath();
         }
     }
     endabgabe.Circle = Circle;

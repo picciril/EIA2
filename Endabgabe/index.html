@@ -23,13 +23,13 @@
         <div id="radioButtons">
             <fieldset id="radioButtons_canvasSize">
                 <input type="radio" id="smallRadio" class="radioButtons_startPage_cs" name="radioButtons_startPage"
-                    value="250">
+                    value="310">
                 <label for="smallRadio">small canvas size</label>
                 <input type="radio" id="mediumRadio" class="radioButtons_startPage_cs" name="radioButtons_startPage"
-                    value="556">
+                    value="400">
                 <label for="middleRadio">middle canvas size</label>
                 <input type="radio" id="largeRadio" class="radioButtons_startPage_cs" name="radioButtons_startPage"
-                    value="960">
+                    value="500">
                 <label for="largeRadio">large canvas size</label>
             </fieldset>
             <fieldset id="radioButtons_Db">
@@ -46,6 +46,11 @@
 
         <div id="canvasContainer">
             <!-- hier kommt der <canvas> rein -->
+        </div>
+        <div id="dragButtonContainer">
+            <img src="img/cube.png" draggable="true" class="addButtons" id="cube">
+            <img src="img/triangle.png" draggable="true" class="addButtons" id="triangle">
+            <img src="img/circle.png" draggable="true" class="addButtons" id="circle">
         </div>
 
         <div id="manipulationArea">
@@ -103,9 +108,11 @@
         <!-- Hier sind die Komponenten für die Endseite hinterlegt-->
         <div id="formularPage_container">
             <form method="post" action="dateiname server" id="formularPage_formular">
+                <p>Hier kannst du deinen Canvas speichern</p>
                 <label for="formular_name">Name des Bildes:</label>
                 <!-- größer 6 zeichen -->
                 <input type="text" id="formular_name" placeholder="Name des Bildes" pattern="^[A-Za-z]" required><br>
+
                 <label for="formular_author">Dein Name:</label>
                 <!-- größer 3 zeichen -->
                 <input type="text" id="formular_author" placeholder="Dein Name" pattern="^[A-Za-z]" required><br>

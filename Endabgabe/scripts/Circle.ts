@@ -37,10 +37,12 @@ namespace endabgabe {
         //draw-methode
         draw(): void {
             crc.beginPath();
+            crc.strokeStyle = "black";
             crc.arc(this.xPos, this.yPos, this.size, this.start, this.stop);
-            crc.stroke();
-            crc.fillStyle = "red";
+            crc.strokeStyle = "black";
             crc.fill();
+            crc.closePath();
+            
         }
 
         

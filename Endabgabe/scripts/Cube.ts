@@ -12,7 +12,7 @@ namespace endabgabe {
 
             //default 1
             this.scale = 1;
-            this.size = 200;
+            this.size = 100;
             this.xSpeed = 0;
             this.ySpeed = 0;
 
@@ -25,7 +25,7 @@ namespace endabgabe {
             // true / flase
             this.glow = false;
 
-            this.color = "black";
+            this.color = "lightblue";
 
         }
 

@@ -4,7 +4,7 @@ var endabgabe;
     window.addEventListener("load", init);
     let imgData;
     //Arrays
-    let menueObjects = [];
+    //let menueObjects: MenueObject[] = [];
     let movingObjects = [];
     //let allCubes: Cube[];
     //let allCircles: Circle[];
@@ -12,9 +12,9 @@ var endabgabe;
     let smallCanvas_value;
     let mediumCanvas_value;
     let largeCanvas_value;
-    let menuCube;
-    let menuCircle;
-    let menuTriangle;
+    //let menuCube: MenueObject;
+    //let menuCircle: MenueObject;
+    //let menuTriangle: MenueObject;
     //let dragObject: MovingObject;
     let startPage;
     let startButton;
@@ -24,15 +24,19 @@ var endabgabe;
     let smallCanvas;
     let mediumCanvas;
     let largeCanvas;
+    let dragButtonContainer;
+    //let rotationInputContainer: HTMLDivElement;
+    //let rotationRadioColl: HTMLCollectionOf<HTMLInputElement>;
     //let manipulationArea: HTMLDivElement = <HTMLDivElement>document.getElementById("manipulationArea");
-    let xSpeedRange;
-    let ySpeedRange;
-    let scaleRange;
-    let rotationInputContainer;
-    let rotationRadioColl;
-    let colorInput;
-    let wabbleBox;
-    let glowBox;
+    /*
+    let xSpeedRange: HTMLInputElement;
+    let ySpeedRange: HTMLInputElement;
+    let scaleRange: HTMLInputElement;
+
+    let colorInput: HTMLInputElement;
+    let wabbleBox: HTMLInputElement;
+    let glowBox: HTMLInputElement;
+*/
     let finalButton;
     let reloadButton00;
     let formularPage;
@@ -40,6 +44,9 @@ var endabgabe;
     let reloadButton01;
     let finalPage;
     let reloadButton02;
+    //
+    endabgabe.canvasWidth = 310;
+    endabgabe.canvasHeight = 600;
     function init() {
         //richtige abschnitte sichtbar machen
         startPage = document.getElementById("startPage");
@@ -131,27 +138,39 @@ var endabgabe;
         gamePage.style.display = "block";
         formularPage.style.display = "none";
         finalPage.style.display = "none";
-        xSpeedRange = document.getElementById("xSpeedRange");
-        ySpeedRange = document.getElementById("ySpeedRange");
-        scaleRange = document.getElementById("sizeRange");
-        rotationInputContainer = document.getElementById("rotationInputContainer");
+        dragButtonContainer = document.getElementById("dragButtonContainer");
+        //rotationInputContainer = <HTMLDivElement>document.getElementById("rotationInputContainer");
+        /*
+        xSpeedRange = <HTMLInputElement>document.getElementById("xSpeedRange");
+        ySpeedRange = <HTMLInputElement>document.getElementById("ySpeedRange");
+        scaleRange = <HTMLInputElement>document.getElementById("sizeRange");
+
+        
         rotationRadioColl = rotationInputContainer.getElementsByTagName("input");
-        colorInput = document.getElementById("colorInput");
-        wabbleBox = document.getElementById("wabbleBox");
-        glowBox = document.getElementById("glowBox");
+        colorInput = <HTMLInputElement>document.getElementById("colorInput");
+        wabbleBox = <HTMLInputElement>document.getElementById("wabbleBox");
+        glowBox = <HTMLInputElement>document.getElementById("glowBox");
+        */
         //hier wird <canvas> erstellt
         createCanvas();
-        //hier werden alle Statischen Elemente gezeichnet
-        createStables();
         // imgData speichern
         imgData = endabgabe.crc.getImageData(0, 0, canvas.width, canvas.height);
-        //addEventlistener DragEvent dragstart mouseclick whatever
-        handleDrag();
+        //EventListener auf Canvas für Drag&Drop event
+        canvas.addEventListener("drop", handleDrop);
+        canvas.addEventListener("dragover", allowDrop);
+        console.log("Listener DROP");
+        //EventListener auf den drei Drag Buttons
+        let addButtons = dragButtonContainer.getElementsByTagName("img");
+        console.log("addButtons array");
+        for (let i = 0; i < addButtons.length; i++) {
+            addButtons[i].addEventListener("dragstart", handleDrag);
+            console.log("Listener DRAG" + addButtons[i].id);
+        }
         //addEventListener Buttons
         finalButton = document.getElementById("finalButton");
         finalButton.addEventListener("click", createFormularPage);
         reloadButton00 = document.getElementById("reloadButton00");
-        reloadButton00.addEventListener("click", location.reload);
+        reloadButton00.addEventListener("click", reload);
         //windows set timout blabla
         animate();
     }
@@ -161,24 +180,21 @@ var endabgabe;
         //Attribute an <canvas> element hinzufügen
         canvas.id = "canvas";
         canvas.width = endabgabe.canvasWidth;
-        canvas.height = 600;
+        canvas.height = endabgabe.canvasWidth;
         //Variable für canvasContainer Wert zuweisen
         canvasContainer = document.getElementById("canvasContainer");
         //canvas in DOM laden als Child von canvasContainer
         canvasContainer.appendChild(canvas);
-    }
-    function createStables() {
-        // create Vorschau Abschnitt
-        //draw für schwarzen balken unten
-        // Vorschauobjekte für das Menü erstellen
-        menuCube = new endabgabe.MenueObject("cube");
-        menuCircle = new endabgabe.MenueObject("circle");
-        menuTriangle = new endabgabe.MenueObject("triangle");
-        // >> in Array MenuObjects  pushen
-        menueObjects.push(menuCube, menuCircle, menuTriangle);
+        endabgabe.crc = canvas.getContext("2d");
+        endabgabe.crc.strokeStyle = "#000000";
+        endabgabe.crc.lineWidth = 3;
+        endabgabe.crc.strokeRect(0, 0, canvas.width, canvas.height);
+        endabgabe.crc.fillStyle = "#FAF0E6";
+        endabgabe.crc.fillRect(0, 0, canvas.width, canvas.height);
     }
     //animates (possibly) movingObjects[] and checks Manipulation
     function animate() {
+        console.log("animate");
         //delete
         endabgabe.crc.clearRect(0, 0, endabgabe.crc.canvas.width, endabgabe.crc.canvas.height);
         //putImgData
@@ -186,58 +202,104 @@ var endabgabe;
         for (let i = 0; i < movingObjects.length; i++) {
             movingObjects[i].update();
             if (movingObjects[i].checkHit() == true) {
-                inputsAdaptObjectValues(movingObjects[i]);
-                movingObjects[i].adaptManipulation(xSpeedRange.valueAsNumber, ySpeedRange.valueAsNumber, scaleRange.valueAsNumber, checkRotationValue(), colorInput.value, wabbleBox.checked, glowBox.checked);
+                //inputsAdaptObjectValues(movingObjects[i]);
+                //movingObjects[i].adaptManipulation(xSpeedRange.valueAsNumber, ySpeedRange.valueAsNumber, scaleRange.valueAsNumber, checkRotationValue(), colorInput.value, wabbleBox.checked, glowBox.checked);
             }
         }
         window.setTimeout(animate, 5);
     }
-    function inputsAdaptObjectValues(_hittedObject) {
+    /*
+    function inputsAdaptObjectValues(_hittedObject: MovingObject): void {
+
         xSpeedRange.value = String(_hittedObject.xSpeed);
         ySpeedRange.value = String(_hittedObject.ySpeed);
         scaleRange.value = String(_hittedObject.size);
+
         //radio button
-        for (let i = 0; i < rotationRadioColl.length; i++) {
+        for (let i: number = 0; i < rotationRadioColl.length; i++) {
             rotationRadioColl[i].checked = false;
             if (rotationRadioColl[i].value == _hittedObject.rotation) {
                 rotationRadioColl[i].checked = true;
             }
         }
+
+
         colorInput.value = _hittedObject.color;
         wabbleBox.checked = _hittedObject.wabble;
         glowBox.checked = _hittedObject.glow;
         //aktivate manipulation area with values of object
-        //handleManipulation 
+        //handleManipulation
         //variable für radios und radios auslesen
     }
-    function checkRotationValue() {
-        //radio buttons
-        let returnString = "";
-        for (let i = 0; i < rotationRadioColl.length; i++) {
-            if (rotationRadioColl[i].checked == true) {
-                returnString = rotationRadioColl[i].value;
+*/
+    /*
+        function checkRotationValue(): string {
+            //radio buttons
+            let returnString: string = "";
+            for (let i: number = 0; i < rotationRadioColl.length; i++) {
+                if (rotationRadioColl[i].checked == true) {
+                    returnString = rotationRadioColl[i].value;
+                }
             }
+            return returnString;
         }
-        return returnString;
+        */
+    function handleDrag(_e) {
+        console.log("DRAG");
+        let eventTarget = _e.target;
+        let dataTransf = _e.dataTransfer;
+        dataTransf.setData("text", eventTarget.id);
     }
-    function handleDrag() {
-        //check event.target mouseposition
-        //indentify target.type
-        //bei dragstart an mouse anheften bis dragstop
-        //if (mouse bei dragstop in canvasbereich)
-        addNewObject();
+    function handleDrop(_e) {
+        console.log("DROP");
+        _e.preventDefault();
+        let dataTransf = _e.dataTransfer;
+        let objectID = dataTransf.getData("text");
+        let randomX = getRandomPosition(canvas.width);
+        let randomY = getRandomPosition(canvas.height);
+        switch (objectID) {
+            case "circle":
+                let circle = new endabgabe.Circle(_e.clientX, _e.clientY, objectID);
+                movingObjects.push(circle);
+                circle.draw();
+                break;
+            case "cube":
+                let cube = new endabgabe.Cube(randomX, randomY, objectID);
+                movingObjects.push(cube);
+                cube.draw();
+                break;
+            case "triangle":
+                let triangle = new endabgabe.Triangle(_e.clientX, _e.clientY, objectID);
+                movingObjects.push(triangle);
+                triangle.draw();
+                break;
+            default: break;
+        }
     }
-    function addNewObject() {
-        //if drag
-        //parameter type
-        //mouseposition x
-        //mouseposition y
-        // else if random
-        //switch (parametertype)
-        //foreach
-        //create new Object
-        //push to movingObjects.Array
+    function allowDrop(_e) {
+        console.log("Allow DROP");
+        _e.preventDefault();
     }
+    function getRandomPosition(_numb) {
+        let min = Math.ceil(0);
+        let max = Math.floor(_numb);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    /*
+        function addNewObject(_e: Event): void {
+            //if drag
+            //parameter type
+            //mouseposition x
+            //mouseposition y
+            // else if random
+    
+            //switch (parametertype)
+    
+            //foreach
+            //create new Object
+            //push to movingObjects.Array
+         }
+         */
     //_______________________________________________________________________
     // creates formular page, leads to reload or sends data to database
     function createFormularPage() {
@@ -248,7 +310,7 @@ var endabgabe;
         formularPage.style.display = "block";
         finalPage.style.display = "none";
         reloadButton01 = document.getElementById("reloadButton01");
-        reloadButton01.addEventListener("click", location.reload);
+        reloadButton01.addEventListener("click", reload);
         saveButton = document.getElementById("saveButton");
         saveButton.addEventListener("click", checkValidityFormular);
     }
@@ -300,7 +362,10 @@ var endabgabe;
         //createElement + Message
         //appendToParent
         reloadButton02 = document.getElementById("reloadButton02");
-        reloadButton02.addEventListener("click", location.reload);
+        reloadButton02.addEventListener("click", reload);
+    }
+    function reload() {
+        location.reload();
     }
 })(endabgabe || (endabgabe = {}));
 //# sourceMappingURL=main.js.map

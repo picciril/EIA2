@@ -7,7 +7,7 @@ namespace endabgabe {
     let imgData: ImageData;
 
     //Arrays
-    let menueObjects: MenueObject[] = [];
+    //let menueObjects: MenueObject[] = [];
     let movingObjects: MovingObject[] = [];
     //let allCubes: Cube[];
     //let allCircles: Circle[];
@@ -18,9 +18,9 @@ namespace endabgabe {
     let largeCanvas_value: number;
 
 
-    let menuCube: MenueObject;
-    let menuCircle: MenueObject;
-    let menuTriangle: MenueObject;
+    //let menuCube: MenueObject;
+    //let menuCircle: MenueObject;
+    //let menuTriangle: MenueObject;
 
     //let dragObject: MovingObject;
 
@@ -35,19 +35,20 @@ namespace endabgabe {
     let mediumCanvas: HTMLInputElement;
     let largeCanvas: HTMLInputElement;
 
+    let dragButtonContainer: HTMLDivElement;
+    //let rotationInputContainer: HTMLDivElement;
+    //let rotationRadioColl: HTMLCollectionOf<HTMLInputElement>;
 
     //let manipulationArea: HTMLDivElement = <HTMLDivElement>document.getElementById("manipulationArea");
+    /*
     let xSpeedRange: HTMLInputElement;
     let ySpeedRange: HTMLInputElement;
     let scaleRange: HTMLInputElement;
 
-    let rotationInputContainer: HTMLDivElement;
-    let rotationRadioColl: HTMLCollectionOf<HTMLInputElement>;
-
     let colorInput: HTMLInputElement;
     let wabbleBox: HTMLInputElement;
     let glowBox: HTMLInputElement;
-
+*/
     let finalButton: HTMLButtonElement;
     let reloadButton00: HTMLButtonElement;
 
@@ -60,8 +61,8 @@ namespace endabgabe {
 
 
     //
-    export let canvasWidth: number;
-    export let canvasHeight: number;
+    export let canvasWidth: number = 310;
+    export let canvasHeight: number = 600;
 
 
     function init(): void {
@@ -97,7 +98,7 @@ namespace endabgabe {
         }
 
         startButton = <HTMLButtonElement>document.getElementById("startButton");
-        startButton.addEventListener("click", handleStart)
+        startButton.addEventListener("click", handleStart);
     }
 
     function handleStart(): void {
@@ -179,35 +180,46 @@ namespace endabgabe {
         formularPage.style.display = "none";
         finalPage.style.display = "none";
 
-
+        dragButtonContainer = <HTMLDivElement>document.getElementById("dragButtonContainer");
+        //rotationInputContainer = <HTMLDivElement>document.getElementById("rotationInputContainer");
+        /*
         xSpeedRange = <HTMLInputElement>document.getElementById("xSpeedRange");
         ySpeedRange = <HTMLInputElement>document.getElementById("ySpeedRange");
         scaleRange = <HTMLInputElement>document.getElementById("sizeRange");
 
-        rotationInputContainer = <HTMLDivElement>document.getElementById("rotationInputContainer");
+        
         rotationRadioColl = rotationInputContainer.getElementsByTagName("input");
         colorInput = <HTMLInputElement>document.getElementById("colorInput");
         wabbleBox = <HTMLInputElement>document.getElementById("wabbleBox");
         glowBox = <HTMLInputElement>document.getElementById("glowBox");
+        */
 
         //hier wird <canvas> erstellt
         createCanvas();
 
-        //hier werden alle Statischen Elemente gezeichnet
-        createStables();
-
         // imgData speichern
         imgData = crc.getImageData(0, 0, canvas.width, canvas.height);
 
-        //addEventlistener DragEvent dragstart mouseclick whatever
-        handleDrag();
+        //EventListener auf Canvas für Drag&Drop event
+        canvas.addEventListener("drop", handleDrop);
+        canvas.addEventListener("dragover", allowDrop);
+        console.log("Listener DROP");
+
+        //EventListener auf den drei Drag Buttons
+        let addButtons: HTMLCollectionOf<HTMLImageElement> = dragButtonContainer.getElementsByTagName("img");
+        console.log("addButtons array");
+
+        for (let i: number = 0; i < addButtons.length; i++) {
+            addButtons[i].addEventListener("dragstart", handleDrag);
+            console.log("Listener DRAG" + addButtons[i].id);
+        }
 
         //addEventListener Buttons
         finalButton = <HTMLButtonElement>document.getElementById("finalButton");
         finalButton.addEventListener("click", createFormularPage);
 
         reloadButton00 = <HTMLButtonElement>document.getElementById("reloadButton00");
-        reloadButton00.addEventListener("click", location.reload);
+        reloadButton00.addEventListener("click", reload);
 
         //windows set timout blabla
         animate();
@@ -220,30 +232,24 @@ namespace endabgabe {
         //Attribute an <canvas> element hinzufügen
         canvas.id = "canvas";
         canvas.width = canvasWidth;
-        canvas.height = 600;
+        canvas.height = canvasWidth;
 
         //Variable für canvasContainer Wert zuweisen
         canvasContainer = <HTMLDivElement>document.getElementById("canvasContainer");
 
         //canvas in DOM laden als Child von canvasContainer
         canvasContainer.appendChild(canvas);
-
-    }
-
-    function createStables(): void {
-        // create Vorschau Abschnitt
-        //draw für schwarzen balken unten
-
-        // Vorschauobjekte für das Menü erstellen
-        menuCube = new MenueObject("cube");
-        menuCircle = new MenueObject("circle");
-        menuTriangle = new MenueObject("triangle");
-        // >> in Array MenuObjects  pushen
-        menueObjects.push(menuCube, menuCircle, menuTriangle);
+        crc = <CanvasRenderingContext2D>canvas.getContext("2d");
+        crc.strokeStyle = "#000000";
+        crc.lineWidth = 3;
+        crc.strokeRect(0, 0, canvas.width, canvas.height);
+        crc.fillStyle = "#FAF0E6";
+        crc.fillRect(0, 0, canvas.width, canvas.height);
     }
 
     //animates (possibly) movingObjects[] and checks Manipulation
     function animate(): void {
+        console.log("animate");
         //delete
         crc.clearRect(0, 0, crc.canvas.width, crc.canvas.height);
         //putImgData
@@ -253,9 +259,9 @@ namespace endabgabe {
             movingObjects[i].update();
             if (movingObjects[i].checkHit() == true) {
 
-                inputsAdaptObjectValues(movingObjects[i]);
+                //inputsAdaptObjectValues(movingObjects[i]);
 
-                movingObjects[i].adaptManipulation(xSpeedRange.valueAsNumber, ySpeedRange.valueAsNumber, scaleRange.valueAsNumber, checkRotationValue(), colorInput.value, wabbleBox.checked, glowBox.checked);
+                //movingObjects[i].adaptManipulation(xSpeedRange.valueAsNumber, ySpeedRange.valueAsNumber, scaleRange.valueAsNumber, checkRotationValue(), colorInput.value, wabbleBox.checked, glowBox.checked);
             }
         }
 
@@ -263,6 +269,7 @@ namespace endabgabe {
 
     }
 
+    /*
     function inputsAdaptObjectValues(_hittedObject: MovingObject): void {
 
         xSpeedRange.value = String(_hittedObject.xSpeed);
@@ -285,39 +292,88 @@ namespace endabgabe {
         //handleManipulation 
         //variable für radios und radios auslesen
     }
-
-    function checkRotationValue(): string {
-        //radio buttons
-        let returnString: string = "";
-        for (let i: number = 0; i < rotationRadioColl.length; i++) {
-            if (rotationRadioColl[i].checked == true) {
-                returnString = rotationRadioColl[i].value;
+*/
+    /*
+        function checkRotationValue(): string {
+            //radio buttons
+            let returnString: string = "";
+            for (let i: number = 0; i < rotationRadioColl.length; i++) {
+                if (rotationRadioColl[i].checked == true) {
+                    returnString = rotationRadioColl[i].value;
+                }
             }
+            return returnString;
         }
-        return returnString;
+        */
+
+
+    function handleDrag(_e: DragEvent): void {
+        console.log("DRAG");
+        let eventTarget: HTMLImageElement = <HTMLImageElement>_e.target;
+        let dataTransf: DataTransfer = <DataTransfer>_e.dataTransfer;
+        dataTransf.setData("text", eventTarget.id);
     }
 
-    function handleDrag(): void {
-        //check event.target mouseposition
-        //indentify target.type
-        //bei dragstart an mouse anheften bis dragstop
-        //if (mouse bei dragstop in canvasbereich)
-        addNewObject();
+    function handleDrop(_e: DragEvent): void {
+        console.log("DROP");
+        _e.preventDefault();
+        let dataTransf: DataTransfer = <DataTransfer>_e.dataTransfer;
+        let objectID: string = dataTransf.getData("text");
+
+        
+        let randomX: number = getRandomPosition(canvas.width);
+        let randomY: number = getRandomPosition(canvas.height);
+        
+
+        switch (objectID) {
+            case "circle":
+                let circle: Circle = new Circle(_e.clientX, _e.clientY, objectID);
+                movingObjects.push(circle);
+                circle.draw();
+                break;
+            case "cube":
+                let cube: Cube = new Cube(randomX, randomY, objectID);
+                movingObjects.push(cube);
+                cube.draw();
+                break;
+            case "triangle":
+                let triangle: Triangle = new Triangle(_e.clientX, _e.clientY, objectID);
+                movingObjects.push(triangle);
+                triangle.draw();
+                break;
+            default: break;
+        }
+
     }
 
-    function addNewObject(): void {
-        //if drag
-        //parameter type
-        //mouseposition x
-        //mouseposition y
-        // else if random
-
-        //switch (parametertype)
-
-        //foreach
-        //create new Object
-        //push to movingObjects.Array
+    function allowDrop(_e: Event): void {
+        console.log("Allow DROP");
+        _e.preventDefault();
     }
+
+    
+    function getRandomPosition(_numb: number) :number {
+        let min = Math.ceil(0);
+        let max = Math.floor(_numb);
+        return Math.floor(Math.random() * (max - min +1)) + min; 
+      }
+    
+
+    /*
+        function addNewObject(_e: Event): void {
+            //if drag
+            //parameter type
+            //mouseposition x
+            //mouseposition y
+            // else if random
+    
+            //switch (parametertype)
+    
+            //foreach
+            //create new Object
+            //push to movingObjects.Array
+         }
+         */
 
 
     //_______________________________________________________________________
@@ -331,7 +387,7 @@ namespace endabgabe {
         finalPage.style.display = "none";
 
         reloadButton01 = <HTMLButtonElement>document.getElementById("reloadButton01");
-        reloadButton01.addEventListener("click", location.reload);
+        reloadButton01.addEventListener("click", reload);
 
         saveButton = <HTMLInputElement>document.getElementById("saveButton");
         saveButton.addEventListener("click", checkValidityFormular);
@@ -367,8 +423,6 @@ namespace endabgabe {
 
         //das komplette Array.movingobjects
         //canvas Infos
-
-
         createFinalPage();
     }
 
@@ -397,8 +451,12 @@ namespace endabgabe {
 
 
         reloadButton02 = <HTMLButtonElement>document.getElementById("reloadButton02");
-        reloadButton02.addEventListener("click", location.reload);
+        reloadButton02.addEventListener("click", reload);
 
+    }
+
+    function reload(): void {
+        location.reload();
     }
 
 }

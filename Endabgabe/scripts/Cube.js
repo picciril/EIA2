@@ -10,7 +10,7 @@ var endabgabe;
             this.type = _type;
             //default 1
             this.scale = 1;
-            this.size = 200;
+            this.size = 100;
             this.xSpeed = 0;
             this.ySpeed = 0;
             // right, left und none
@@ -19,7 +19,7 @@ var endabgabe;
             this.wabble = false;
             // true / flase
             this.glow = false;
-            this.color = "black";
+            this.color = "lightblue";
         }
         update() {
             this.draw();
