@@ -19,7 +19,7 @@ fieldset {
 }
 
 .addButtons:hover {
-    width: 100px;
+    background-color: linen;
 }
 
 #formularPage {
